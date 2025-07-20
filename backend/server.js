@@ -1,6 +1,7 @@
 import express from "express";
 import dbConnection from "./config/db.js";
 import dotenv from "dotenv";
+import errorHandler from "./middleware/errorMiddleware.js";
 import cors from "cors";
 import listRoute from "./routes/listRoute.js";
 
@@ -13,7 +14,9 @@ app.use(cors());
 app.use(express.json()); // will parse JSON bodies: req.body
 
 // routes
-app.use("/lists", listRoute);
+app.use("/api/lists", listRoute);
+
+app.use(errorHandler);
 
 // Connects to database before starting server
 const startServer = async () => {
