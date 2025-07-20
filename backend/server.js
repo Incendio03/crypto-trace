@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import errorHandler from "./middleware/errorMiddleware.js";
 import cors from "cors";
 import listRoute from "./routes/listRoute.js";
+import userRoute from "./routes/userRoute.js";
 
 dotenv.config();
 const app = express();
@@ -15,6 +16,7 @@ app.use(express.json()); // will parse JSON bodies: req.body
 
 // routes
 app.use("/api/lists", listRoute);
+app.use("/api/users", userRoute);
 
 app.use(errorHandler);
 
