@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { login, reset } from "../features/auth/authSlice.js";
-import Header from "@/components/Header.jsx";
 import {
   Card,
   CardHeader,
@@ -65,7 +64,6 @@ function Login() {
 
   return (
     <>
-      <Header></Header>
       <div className="flex justify-center items-center min-h-screen bg-gray-50">
         <Card className="w-96">
           <CardHeader>
@@ -108,11 +106,10 @@ function Login() {
               </Button>
             </form>
             <div className="text-center mt-7">
-              <span>Don't have an account? </span>
-              <Link
-                to="/register"
-                className="text-blue-600 hover:text-blue-700 font-medium transition-colors"
-              >
+              <span className="text-sm text-muted-foreground">
+                Don't have an account?{" "}
+              </span>
+              <Link to="/register" className="text-sm font-normal">
                 Register here
               </Link>
             </div>
