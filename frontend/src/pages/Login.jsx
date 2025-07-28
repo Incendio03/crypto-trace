@@ -2,12 +2,11 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
-import { register, reset } from "../features/auth/authSlice.js";
+import { login, reset } from "../features/auth/authSlice.js";
 import Header from "@/components/Header.jsx";
 import {
   Card,
   CardHeader,
-  CardFooter,
   CardTitle,
   CardDescription,
   CardContent,
@@ -16,15 +15,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Spinner from "../components/Spinner";
 
-function Register() {
+function Login() {
   const [formData, setFormData] = useState({
-    name: "",
     email: "",
     password: "",
-    password2: "",
   });
 
-  const { name, email, password, password2 } = formData;
+  const { email, password } = formData;
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -54,17 +51,12 @@ function Register() {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (password !== password2) {
-      toast.error("Passwords do not match");
-    } else {
-      const userData = {
-        name,
-        email,
-        password,
-      };
+    const userData = {
+      email,
+      password,
+    };
 
-      dispatch(register(userData));
-    }
+    dispatch(login(userData));
   };
 
   if (isLoading) {
@@ -77,25 +69,12 @@ function Register() {
       <div className="flex justify-center items-center min-h-screen bg-gray-50">
         <Card className="w-96">
           <CardHeader>
-            <CardTitle>Register</CardTitle>
-            <CardDescription>Please create an account</CardDescription>
+            <CardTitle>Login</CardTitle>
+            <CardDescription>Please sign in to your account</CardDescription>
           </CardHeader>
 
           <CardContent>
             <form onSubmit={onSubmit} className="space-y-4">
-              <div>
-                <label className="block text-sm font-normal mb-1">Name</label>
-                <Input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={name}
-                  placeholder="Enter your name"
-                  onChange={onChange}
-                  required
-                />
-              </div>
-
               <div>
                 <label className="block text-sm font-normal mb-1">Email</label>
                 <Input
@@ -124,32 +103,17 @@ function Register() {
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-normal mb-1">
-                  Confirm Password
-                </label>
-                <Input
-                  type="password"
-                  id="password2"
-                  name="password2"
-                  value={password2}
-                  placeholder="Confirm your password"
-                  onChange={onChange}
-                  required
-                />
-              </div>
-
               <Button type="submit" className="w-full">
-                Submit
+                Login
               </Button>
             </form>
             <div className="text-center mt-7">
-              <span>Already have an account? </span>
+              <span>Don't have an account? </span>
               <Link
-                to="/login"
+                to="/register"
                 className="text-blue-600 hover:text-blue-700 font-medium transition-colors"
               >
-                Login here
+                Register here
               </Link>
             </div>
           </CardContent>
@@ -159,4 +123,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Login;
